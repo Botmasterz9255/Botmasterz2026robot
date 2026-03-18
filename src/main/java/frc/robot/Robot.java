@@ -10,6 +10,8 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
@@ -21,10 +23,12 @@ public class Robot extends TimedRobot {
         .withTimestampReplay()
         .withJoystickReplay();
 
-    private final boolean kUseLimelight = false;
+    private final boolean kUseLimelight = true;
+    private final Field2d m_field = new Field2d();
 
     public Robot() {
         m_robotContainer = new RobotContainer();
+        SmartDashboard.putData("field", m_field)
     }
 
     @Override
