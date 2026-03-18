@@ -60,6 +60,8 @@ public class RobotContainer {
     private final ShooterSubsystem Shooter = new ShooterSubsystem();
     private final ClimberSubsystem Climb = new ClimberSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
+    private final SlewRateLimiter xLimiter = new SlewRateLimiter(3.0); // Limit acceleration to 3 m/s^2
+    private final SlewRateLimiter yLimiter = new SlewRateLimiter(3.0); // Limit acceleration to 3 m/s^2
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -78,10 +80,6 @@ public class RobotContainer {
         ));
 
         NamedCommands.registerCommand("shoot fuel", Shooter.runShooterCommand());
-        NamedCommands.registerCommand("climber up", Climb.run(
-            ()->{Climb.setPower(0.2);}
-            ).withTimeout(2).finallyDo(Climb::stop));
-         NamedCommands.registerCommand("climber down", Climb.run(()->{Climb.setPower(-.2);}).withTimeout(2).finallyDo(Climb::stop));
 
         // Warmup PathPlanner to avoid Java pauses
         CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand());
@@ -97,6 +95,14 @@ public class RobotContainer {
                     .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
+
+            // We can test this if we need it to help smooth out the drive train
+            // drivetrain.applyRequest(() ->
+            //     drive.withVelocityX(limiterY.calculate((Math.abs(joystick1.getLeftY()) * joystick1.getLeftY()))) // Drive forward with negative Y (forward)g
+            //         .withVelocityY(limiterX.calculate((Math.abs(joystick1.getLeftX()) * joystick1.getLeftX()))) // Drive left with negative X (left)
+            //         .withRotationalRate(-(Math.abs(joystick1.getRightX()) * joystick1.getRightX())) // Drive counterclockwise with negative X (left)
+            // )
+            
         );
 
         // Idle while the robot is disabled. This ensures the configured
