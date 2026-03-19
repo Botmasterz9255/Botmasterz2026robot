@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 
     public Robot() {
         m_robotContainer = new RobotContainer();
-        SmartDashboard.putData("field", m_field)
+        SmartDashboard.putData("field", m_field);
     }
 
     @Override

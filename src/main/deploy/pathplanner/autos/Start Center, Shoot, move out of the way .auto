@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center, move back "
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runShooterCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Move out of the way "
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

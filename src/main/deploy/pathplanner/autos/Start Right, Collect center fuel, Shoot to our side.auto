@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start Center, Collect over bumper"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeGround"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Turn, shoot to our side"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runShooterCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Turn, Collect  2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeGround"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Collect, shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runShooterCommand"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
