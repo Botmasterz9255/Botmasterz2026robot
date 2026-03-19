@@ -8,7 +8,6 @@ import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
-import frc.robot.generated.TunerConstants.Constants;
 import frc.robot.generated.TunerConstants.ShooterSubsystemConstants;
 
 public final class Configs {
@@ -41,11 +40,9 @@ public static final class IntakeSubsystem{
 
     }
 
-
-
-
 }
- public static final class ShooterSubsystemConfigs {
+ 
+public static final class ShooterSubsystemConfigs {
     public static final SparkFlexConfig flywheelConfig = new SparkFlexConfig();
     public static final SparkFlexConfig flywheelFollowerConfig = new SparkFlexConfig();
     public static final SparkFlexConfig feederConfig = new SparkFlexConfig();
