@@ -1,0 +1,81 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Over Right Bump- intake center"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "align with center"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntakeCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Back over bump, turn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot from right"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntakeCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runShooterCommand"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 7.0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

@@ -20,10 +20,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public IntakeSubsystem() {
 
-    intakeMotor.configure(
+    /*intakeMotor.configure(
         Configs.IntakeSubsystem.intakeConfig,
         ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
+        PersistMode.kPersistParameters);*/
 
     conveyorMotor.configure(
         Configs.IntakeSubsystem.conveyorConfig,
@@ -50,7 +50,28 @@ public class IntakeSubsystem extends SubsystemBase {
          }, () -> {
            this.setIntakePower(0.0);
            this.setConveyorPower(0.0);
-        }).withName("Intaking");
+        }).withName("IntakingWithConveyor");
+
+    }
+
+    public Command runConvyerCommand(){
+        return this.startEnd(
+         () -> {           
+          this.setConveyorPower(TunerConstants.Constants.ConveyorSetpoints.kIntake);
+         }, () -> {
+           this.setConveyorPower(0.0);
+        }).withName("Conveyor");
+
+    }
+     public Command runOnlyIntakeCommand() {
+      return this.startEnd(
+         () -> {
+           this.setIntakePower(IntakeSetpoints.kIntakeOnly);
+           //this.setConveyorPower(TunerConstants.Constants.ConveyorSetpoints.kIntake);
+         }, () -> {
+           this.setIntakePower(0.0);
+          // this.setConveyorPower(0.0);
+        }).withName("IntakingOnly");
 
     }
 

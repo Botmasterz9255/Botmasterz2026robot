@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start Right, over Bump"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Over Bump, Shoot"
+            "pathName": "TestPath"
           }
         }
       ]

@@ -1,0 +1,81 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Over left bump 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Align with center (Left)"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Intake, center (left)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntakeCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Backwards over Bump (left)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left bump, center hub"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntakeCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runShooterCommand"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 7.0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

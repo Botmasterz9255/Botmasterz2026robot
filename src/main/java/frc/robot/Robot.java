@@ -7,7 +7,9 @@ package frc.robot;
 import com.ctre.phoenix6.HootAutoReplay;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +35,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        m_timeAndJoystickReplay.update();
+        //m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run();
 
         /*
@@ -54,7 +56,17 @@ public class Robot extends TimedRobot {
             if (llMeasurement != null && llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
                 m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
             }
+            SmartDashboard.putNumber("LimelightTX", LimelightHelpers.getTX("limelight"));
+            SmartDashboard.putNumber("LimelightTY", LimelightHelpers.getTY("limelight"));
+            SmartDashboard.putNumber("LimelightTA", LimelightHelpers.getTA("limelight"));
+
+
         }
+
+        //SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
+        //SmartDashboard.putNumber("Voltage", RobotController.getBatteryVoltage());
+        //SmartDashboard.putBoolean("Brownout", RobotController.isBrownedOut());
+        //SmartDashboard.putString("Radio LED State", RobotController.getRadioLEDState().name());
     }
 
     @Override

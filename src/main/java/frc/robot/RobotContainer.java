@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.fasterxml.jackson.databind.util.Named;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -64,19 +65,19 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
-        autoChooser = new SendableChooser<>();
-        SmartDashboard.putData("Auto Mode", autoChooser);
-
+        //autoChooser = new SendableChooser<>();
+        NamedCommands.registerCommand("runIntakeCommand", intake.runIntakeCommand());
+        NamedCommands.registerCommand("runShooterCommand", shooter.runShooterCommand());
+        NamedCommands.registerCommand("runConveyorCommand", intake.runConvyerCommand());   
         configureBindings();
-
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Mode", autoChooser);
         autoChooser.addOption("Refuel At Outpost Right", Autos.refuelAtOutpost_Right(drivetrain, intake, shooter));
         autoChooser.setDefaultOption("Shoot Preloads", 
         Commands.parallel(
             shooter.runShooterCommand().withTimeout(10),
             intake.runIntakeCommand().withTimeout(10)
         ));
-
-        NamedCommands.registerCommand("shoot fuel", shooter.runShooterCommand());
 
         // Warmup PathPlanner to avoid Java pauses
         CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand());
@@ -114,6 +115,13 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-joystick1.getLeftY(), -joystick1.getLeftX()))
         ));
 
+        joystick1.x().whileTrue(drivetrain.applyRequest(() ->  
+            drive.withVelocityX(0) // Drive forward with negative Y (forward)
+            .withVelocityY(0) // Drive left with negative X (left)
+            .withRotationalRate((LimelightHelpers.getTX("limelight")*-0.13))) // Drive counterclockwise with negative X (left)
+
+        );
+
         joystick1.povUp().whileTrue(drivetrain.applyRequest(() ->
             forwardStraight.withVelocityX(0.5).withVelocityY(0))
         );
@@ -123,10 +131,10 @@ public class RobotContainer {
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick1.back().and(joystick1.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick1.back().and(joystick1.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick1.start().and(joystick1.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick1.start().and(joystick1.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+       // joystick1.back().and(joystick1.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        //joystick1.back().and(joystick1.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        //joystick1.start().and(joystick1.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        //joystick1.start().and(joystick1.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
         joystick1.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
@@ -134,11 +142,12 @@ public class RobotContainer {
 
         joystick2.a().whileTrue(intake.runIntakeCommand());
         joystick2.rightTrigger().whileTrue(shooter.runFlywheelCommand());
-        joystick2.y().whileTrue(intake.runIntakeCommand());
+        joystick2.y().whileTrue(intake.runConvyerCommand());
         joystick2.y().whileTrue(shooter.runShooterCommand());
         joystick2.b().whileTrue(intake.runExtakeCommand());
         joystick2.rightBumper().whileTrue(shooter.runShooterCommandFar());
         joystick2.rightBumper().whileTrue(intake.runIntakeCommand());
+        joystick2.x().whileTrue(intake.runOnlyIntakeCommand());
       
 
         // Reset the field-centric heading on left bumper press.

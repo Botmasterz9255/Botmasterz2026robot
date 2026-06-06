@@ -27,7 +27,7 @@ public static final class IntakeSubsystem{
         .inverted(false)
         .idleMode(IdleMode.kCoast)
         .openLoopRampRate(0.5)
-        .smartCurrentLimit(40);
+        .smartCurrentLimit(60);
 
       // Configure basic settings of the conveyor motor
       conveyorConfig
