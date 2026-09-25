@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
         .withTimestampReplay()
         .withJoystickReplay();
 
-    private final boolean kUseLimelight = true;
+    private final boolean kUseLimelight = false;
     private final Field2d m_field = new Field2d();
 
     public Robot() {
