@@ -29,6 +29,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.AutoAlign;
 import frc.robot.commands.Autos;
 
 public class RobotContainer {
@@ -140,7 +141,7 @@ public class RobotContainer {
 
         // Reset the field-centric heading on left bumper press.
         joystick1.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-
+        joystick1.rightBumper().onTrue(new AutoAlign());
 
         joystick2.a().whileTrue(intake.runIntakeCommand());
         joystick2.rightTrigger().whileTrue(shooter.runFlywheelCommand());

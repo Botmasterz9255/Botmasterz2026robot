@@ -284,7 +284,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SmartDashboard.putNumber("Swerve Drive x pose", getState().Pose.getX());
          SmartDashboard.putNumber("Swerve Drive y pose", getState().Pose.getY());
           SmartDashboard.putNumber("Swerve Drive rot", getState().Pose.getRotation().getDegrees());
-        Pose2d llpose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+        Pose2d llpose = LimelightHelpers.getBotPose2d("limelight");
         SmartDashboard.putNumber("limelight X", llpose.getX());
         SmartDashboard.putNumber("limelight Y", llpose.getY());
         SmartDashboard.putNumber("limelight Heading", llpose.getRotation().getDegrees());
