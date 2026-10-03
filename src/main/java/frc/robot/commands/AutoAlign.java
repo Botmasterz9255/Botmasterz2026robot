@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class AutoAlign extends Command {
     public Command m_path;
+    private boolean end = false;
+
     @Override
     public void initialize(){
 
@@ -26,7 +28,11 @@ public class AutoAlign extends Command {
     public void execute(){
 
         m_path.schedule();
-        //fahh
+        end = true;
         
+    }
+    @Override
+    public boolean isFinished(){
+        return end;
     }
 }
